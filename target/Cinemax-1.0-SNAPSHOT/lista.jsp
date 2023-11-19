@@ -30,10 +30,9 @@
 
 
                     <%
-                        List<Pelicula> listaPeliculas = (List<Pelicula>)request.getAttribute("listaPeliculas");
+                        List<Pelicula> listaPeliculas = (List<Pelicula>) request.getAttribute("listaPeliculas");
 
-                        for (Pelicula pelicula : listaPeliculas) {
-                    %>
+                        for (Pelicula pelicula : listaPeliculas) {%>
                     <div class="col-4">
                         <div class="card mb-4">
                             <a href="#!"><img class="card-img-top" src="<%= pelicula.getFoto()%>" alt="..."/></a>
@@ -42,14 +41,13 @@
                                 <h2 class="card-title h4"><%= pelicula.getNombre()%></h2>
                                 <p class="card-text"><%= pelicula.getAutor()%></p>
                                 <p class="card-text"><%= pelicula.getDescripcion()%></p>
-                                <a class="btn btn-primary" href="#calificarModal" data-toggle="modal" data-target="#calificarModal">Calificar</a>
+                                <!-- Agregamos un atributo data con la ID de la película -->
+                               <a class="btn btn-primary" href="#calificarModal<%= pelicula.getId_pelicula()%>" data-toggle="modal" data-target="#calificarModal<%= pelicula.getId_pelicula()%>" data-pelicula-id="<%= pelicula.getId_pelicula()%>">Calificar</a>
+                                
                             </div>
                         </div>
                     </div>
-                    <%
-                        }
-                    %>
-                    <div class="modal fade" id="calificarModal" tabindex="-1" role="dialog" aria-labelledby="calificarModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="calificarModal<%= pelicula.getId_pelicula()%>" tabindex="-1" role="dialog" aria-labelledby="calificarModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -60,10 +58,11 @@
                                 </div>
                                 <div class="modal-body">
                                     <!-- Formulario de calificación -->
-                                    <form id="calificarForm">
-                                        <!-- Campo de calificación con un rango de 1 a 10 -->
+                                    <form id="calificarForm" action="calificar" method="POST">
+                                        <input type="hidden" id="peliculaId" name="peliculaId" value="<%= pelicula.getId_pelicula()%>">
                                         <div class="form-group">
-                                            <label for="calificacion">Calificación :  .</label><output id="calificacionValor">5</output>
+                                            <label for="calificacion">Calificación:</label>
+                                            <output id="calificacionValor">6</output>
                                             <input type="range" class="form-range" id="calificacion" name="calificacion" min="1" max="10" step="1" required>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Enviar Calificación</button>
@@ -72,30 +71,12 @@
                             </div>
                         </div>
                     </div>
+                    <% }
+                        /**/%>
 
-                    <div class="col-4">
-                        <div class="card mb-4">
-                            <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                            <div class="card-body">
-                                <div class="small text-muted">Calificacion</div>
-                                <h2 class="card-title h4">Pelicula Nombre</h2>
-                                <p class="card-text">Sinopsis</p>
-                                <a class="btn btn-primary " href="#!">Calificar</a>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-4">
-                        <div class="card mb-4">
-                            <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                            <div class="card-body">
-                                <div class="small text-muted">Calificacion</div>
-                                <h2 class="card-title h4">Pelicula Nombre</h2>
-                                <p class="card-text">Sinopsis</p>
-                                <a class="btn btn-primary" href="#!">Calificar</a>
-                            </div>
-                        </div>
-                    </div>
+
+
                 </div>
             </div>
             <div class="container cod1" id="PeliculasContainer">
@@ -114,8 +95,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="./JavaScript/modal.js"></script>
-
     </body>
 
 </html>

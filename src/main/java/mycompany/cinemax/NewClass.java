@@ -19,7 +19,7 @@ public class NewClass {
         operations BD = new operations();
         List<Pelicula> listaPeliculas = BD.getPeliculasDB();
         for(Pelicula pelicua:listaPeliculas){
-            System.out.println(pelicua.getNombre());
+            System.out.println(pelicua.getId_pelicula());
         }
     }
 }
