@@ -79,15 +79,21 @@ public class Peliculas extends HttpServlet {
         operations BD = new operations();
         List<Pelicula> listaPeliculas=BD.getPeliculasDB();
         System.out.println("----------------------------------------------");
-        System.out.println("----------------------------------------------");
-        System.out.println("----------------------------------------------");
         System.out.println("Tamaño de la lista: " + listaPeliculas.size());
         System.out.println("----------------------------------------------");
-        System.out.println("----------------------------------------------");
-        System.out.println("----------------------------------------------");
-        //HttpSession misesion=request.getSession() ;
+        List<Double> promedios = new ArrayList<>();
+
+        for(Pelicula peli:listaPeliculas){
+            
+            if(BD.getCalificacionesPorPelicula(peli.getId_pelicula())==null){
+            promedios.add(0.0);
+            }
+            else{
+                promedios.add(BD.calcularPromedio(BD.getCalificacionesPorPelicula(peli.getId_pelicula())));
+            }
+        }
+        request.setAttribute("promedios", promedios);    
         request.setAttribute("listaPeliculas", listaPeliculas);
-        //response.sendRedirect("lista.jsp");
         RequestDispatcher dispatcher = request.getRequestDispatcher("/lista.jsp");
         dispatcher.forward(request, response);
         

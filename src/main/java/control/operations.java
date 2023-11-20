@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.Calificacion;
 import model.Pelicula;
 
 
@@ -48,6 +49,31 @@ public class operations {
         
         connectionDB.closeConnection(conexion);
     }
+    public void addCalificacionDB(Calificacion cali) {
+        Connection conexion = connectionDB.getConnection();
+        try {
+            String insercion = "INSERT INTO calificaciones (id_pelicula, calificacion) VALUES (?, ?)";
+            PreparedStatement preparedStatement = conexion.prepareStatement(insercion);
+
+            // Establece los valores de los parámetros
+            preparedStatement.setInt(1, cali.getId_pelicula());
+            preparedStatement.setInt(2, cali.getCalificacion());
+
+            // Ejecuta la inserción
+            int filasAfectadas = preparedStatement.executeUpdate();
+            if (filasAfectadas > 0) {
+                System.out.println("calificacion agregada exitosamente a la base de datos.");
+            } else {
+                System.err.println("Error al agregar calificacion a la base de datos.");
+            }
+
+            preparedStatement.close();
+        } catch (Exception e) {
+            System.err.println("Error al agregar calificacion: " + e.getMessage());
+        }
+        
+        connectionDB.closeConnection(conexion);
+    }
     
     public List<Pelicula> getPeliculasDB() {
         Connection conexion = connectionDB.getConnection();
@@ -77,4 +103,49 @@ public class operations {
         connectionDB.closeConnection(conexion);
         return peliculas;
     }
+    
+     public static double calcularPromedio(List<Calificacion> lista) {
+        
+         double suma = 0;
+
+        for (Calificacion cali:lista) {
+            suma += cali.getCalificacion();
+        }
+
+        return suma / lista.size();
+    }
+    
+   public List<Calificacion> getCalificacionesPorPelicula(int idPelicula) {
+        Connection conexion = connectionDB.getConnection();
+        List<Calificacion> calificaciones = new ArrayList<>();
+
+        try {
+            String consulta = "SELECT id_pelicula, calificacion FROM calificaciones WHERE id_pelicula = ?";
+            PreparedStatement preparedStatement = conexion.prepareStatement(consulta);
+            preparedStatement.setInt(1, idPelicula);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int Rcalificacion = resultSet.getInt("calificacion");
+
+                Calificacion calificacion = new Calificacion(idPelicula, Rcalificacion);
+                calificaciones.add(calificacion);
+            }
+
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            System.err.println("Error al obtener calificaciones por id_pelicula: " + e.getMessage());
+        }
+
+        connectionDB.closeConnection(conexion);
+        
+        if (calificaciones.isEmpty()) {
+           return null;
+       }
+        else{
+            return calificaciones;
+        }
+    }
+    
 }

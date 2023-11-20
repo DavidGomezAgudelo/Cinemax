@@ -1,8 +1,10 @@
 
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('calificacion').addEventListener('input', function () {
-        document.getElementById('calificacionValor').value = this.value;
-    });
+document.addEventListener('input', function (event) {
+    if (event.target && event.target.type === 'range') {
+        var calificacionValor = event.target.value;
+        var peliculaId = event.target.getAttribute('data-pelicula-id');
+        document.getElementById('calificacionValor' + peliculaId).textContent = calificacionValor;
+    }
 });
 
 $(document).ready(function() {

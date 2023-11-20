@@ -22,7 +22,7 @@ import model.Pelicula;
  * @author David Gomez
  */
 @WebServlet(name = "Registar", urlPatterns = {"/Registar"})
-public class Registar extends HttpServlet {
+public class Registrar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -92,7 +92,7 @@ public class Registar extends HttpServlet {
         System.out.println("description: "+descripcion);
         operations BD = new operations();
         BD.addPeliculaDB(pelicula);
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("registar.jsp");
     }
 
     /**

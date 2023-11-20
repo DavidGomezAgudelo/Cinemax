@@ -31,19 +31,24 @@
 
                     <%
                         List<Pelicula> listaPeliculas = (List<Pelicula>) request.getAttribute("listaPeliculas");
+                        List<Double> promedios = (List<Double>) request.getAttribute("promedios");
 
-                        for (Pelicula pelicula : listaPeliculas) {%>
+                        for (int i = 0; i < listaPeliculas.size(); i++) {
+                            Pelicula pelicula = listaPeliculas.get(i);
+                            Double promedio = promedios.get(i);
+
+                    %>
                     <div class="col-4">
                         <div class="card mb-4">
                             <a href="#!"><img class="card-img-top" src="<%= pelicula.getFoto()%>" alt="..."/></a>
                             <div class="card-body">
-                                <div class="small text-muted">Calificacion</div>
+                                <div class="small text-muted">Calificacion: <%=promedio%></div>
                                 <h2 class="card-title h4"><%= pelicula.getNombre()%></h2>
                                 <p class="card-text"><%= pelicula.getAutor()%></p>
                                 <p class="card-text"><%= pelicula.getDescripcion()%></p>
                                 <!-- Agregamos un atributo data con la ID de la película -->
-                               <a class="btn btn-primary" href="#calificarModal<%= pelicula.getId_pelicula()%>" data-toggle="modal" data-target="#calificarModal<%= pelicula.getId_pelicula()%>" data-pelicula-id="<%= pelicula.getId_pelicula()%>">Calificar</a>
-                                
+                                <a class="btn btn-primary" href="#calificarModal<%= pelicula.getId_pelicula()%>" data-toggle="modal" data-target="#calificarModal<%= pelicula.getId_pelicula()%>" data-pelicula-id="<%= pelicula.getId_pelicula()%>">Calificar</a>
+
                             </div>
                         </div>
                     </div>
@@ -62,8 +67,8 @@
                                         <input type="hidden" id="peliculaId" name="peliculaId" value="<%= pelicula.getId_pelicula()%>">
                                         <div class="form-group">
                                             <label for="calificacion">Calificación:</label>
-                                            <output id="calificacionValor">6</output>
-                                            <input type="range" class="form-range" id="calificacion" name="calificacion" min="1" max="10" step="1" required>
+                                            <output id="calificacionValor<%= pelicula.getId_pelicula()%>">6</output>
+                                            <input type="range" class="form-range" id="calificacion<%= pelicula.getId_pelicula()%>" name="calificacion" min="1" max="10" step="1" required data-pelicula-id="<%= pelicula.getId_pelicula()%>">
                                         </div>
                                         <button type="submit" class="btn btn-primary">Enviar Calificación</button>
                                     </form>

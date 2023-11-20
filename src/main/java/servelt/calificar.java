@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Calificacion;
 import model.Pelicula;
 
 /**
@@ -81,6 +82,9 @@ public class calificar extends HttpServlet {
         System.out.println("----------------------------------------------");
         System.out.println("id: "+id);
         System.out.println("calif: "+calificacion);
+        Calificacion cali =new Calificacion(Integer.parseInt(id),Integer.parseInt(calificacion));
+        operations BD = new operations();
+        BD.addCalificacionDB(cali);
         response.sendRedirect("index.jsp");
         
     }

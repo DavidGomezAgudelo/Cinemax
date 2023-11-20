@@ -8,11 +8,11 @@ package model;
  *
  * @author David Gomez
  */
-public class calificacion {
+public class Calificacion {
     private int id_pelicula;
     private int calificacion;
 
-    public calificacion(int id_pelicula, int calificacion) {
+    public Calificacion(int id_pelicula, int calificacion) {
         this.id_pelicula = id_pelicula;
         this.calificacion = calificacion;
     }
