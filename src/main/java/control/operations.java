@@ -9,19 +9,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import model.Calificacion;
 import model.Pelicula;
-
 
 /**
  *
  * @author David Gomez
  */
 public class operations {
-    
-    
+
     public void addPeliculaDB(Pelicula pelicula) {
         Connection conexion = connectionDB.getConnection();
         try {
@@ -46,9 +45,62 @@ public class operations {
         } catch (Exception e) {
             System.err.println("Error al agregar persona: " + e.getMessage());
         }
-        
+
         connectionDB.closeConnection(conexion);
     }
+
+    public void updatePeliculaDB(Pelicula pelicula) {
+        Connection conexion = connectionDB.getConnection();
+        try {
+            String actualizacion = "UPDATE peliculas SET nombre = ?, sinopsis = ?, foto = ?, autor = ? WHERE id_pelicula = ?";
+            PreparedStatement preparedStatement = conexion.prepareStatement(actualizacion);
+
+            preparedStatement.setString(1, pelicula.getNombre());
+            preparedStatement.setString(2, pelicula.getDescripcion());
+            preparedStatement.setString(3, pelicula.getFoto());
+            preparedStatement.setString(4, pelicula.getAutor());
+            preparedStatement.setInt(5, pelicula.getId_pelicula());
+
+            int filasAfectadas = preparedStatement.executeUpdate();
+            if (filasAfectadas > 0) {
+                System.out.println("Pelicula actualizada exitosamente en la base de datos.");
+            } else {
+                System.err.println("Error al actualizar pelicula en la base de datos.");
+            }
+
+            preparedStatement.close();
+        } catch (Exception e) {
+            System.err.println("Error al actualizar pelicula: " + e.getMessage());
+        }
+
+        connectionDB.closeConnection(conexion);
+    }
+
+    public void deletePeliculaDB(int idPelicula) {
+        Connection conexion = connectionDB.getConnection();
+        try {
+            String eliminacion = "DELETE FROM peliculas WHERE id_pelicula = ?";
+            PreparedStatement preparedStatement = conexion.prepareStatement(eliminacion);
+
+            // Establece la ID
+            preparedStatement.setInt(1, idPelicula);
+
+            // Ejecuta la eliminación
+            int filasAfectadas = preparedStatement.executeUpdate();
+            if (filasAfectadas > 0) {
+                System.out.println("Pelicula eliminada exitosamente de la base de datos.");
+            } else {
+                System.err.println("Error al eliminar pelicula de la base de datos.");
+            }
+
+            preparedStatement.close();
+        } catch (Exception e) {
+            System.err.println("Error al eliminar pelicula: " + e.getMessage());
+        }
+
+        connectionDB.closeConnection(conexion);
+    }
+
     public void addCalificacionDB(Calificacion cali) {
         Connection conexion = connectionDB.getConnection();
         try {
@@ -71,10 +123,10 @@ public class operations {
         } catch (Exception e) {
             System.err.println("Error al agregar calificacion: " + e.getMessage());
         }
-        
+
         connectionDB.closeConnection(conexion);
     }
-    
+
     public List<Pelicula> getPeliculasDB() {
         Connection conexion = connectionDB.getConnection();
         List<Pelicula> peliculas = new ArrayList<>();
@@ -90,7 +142,7 @@ public class operations {
                 String descripcion = resultSet.getString("sinopsis");
                 String autor = resultSet.getString("autor");
 
-                Pelicula pelicula = new Pelicula(nombre,foto,autor,descripcion);
+                Pelicula pelicula = new Pelicula(nombre, foto, autor, descripcion);
                 pelicula.setId_pelicula(idPelicula);
                 peliculas.add(pelicula);
             }
@@ -103,19 +155,22 @@ public class operations {
         connectionDB.closeConnection(conexion);
         return peliculas;
     }
-    
-     public static double calcularPromedio(List<Calificacion> lista) {
-        
-         double suma = 0;
 
-        for (Calificacion cali:lista) {
+    public static double calcularPromedio(List<Calificacion> lista) {
+
+        double suma = 0;
+
+        for (Calificacion cali : lista) {
             suma += cali.getCalificacion();
         }
 
-        return suma / lista.size();
+        double promedio = suma / lista.size();
+        double promedioRedondeado = Math.round(promedio * 10.0) / 10.0;
+
+        return promedioRedondeado;
     }
-    
-   public List<Calificacion> getCalificacionesPorPelicula(int idPelicula) {
+
+    public List<Calificacion> getCalificacionesPorPelicula(int idPelicula) {
         Connection conexion = connectionDB.getConnection();
         List<Calificacion> calificaciones = new ArrayList<>();
 
@@ -139,13 +194,12 @@ public class operations {
         }
 
         connectionDB.closeConnection(conexion);
-        
+
         if (calificaciones.isEmpty()) {
-           return null;
-       }
-        else{
+            return null;
+        } else {
             return calificaciones;
         }
     }
-    
+
 }

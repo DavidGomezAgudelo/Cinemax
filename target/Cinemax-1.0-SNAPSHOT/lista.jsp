@@ -48,6 +48,8 @@
                                 <p class="card-text"><%= pelicula.getDescripcion()%></p>
                                 <!-- Agregamos un atributo data con la ID de la película -->
                                 <a class="btn btn-primary" href="#calificarModal<%= pelicula.getId_pelicula()%>" data-toggle="modal" data-target="#calificarModal<%= pelicula.getId_pelicula()%>" data-pelicula-id="<%= pelicula.getId_pelicula()%>">Calificar</a>
+                                <a class="btn btn-warning" href="#editarModal<%= pelicula.getId_pelicula()%>" data-toggle="modal" data-target="#editarModal<%= pelicula.getId_pelicula()%>" data-pelicula-id="<%= pelicula.getId_pelicula()%>">Editar</a>
+                                <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#eliminarModal<%= pelicula.getId_pelicula()%>" data-pelicula-id="<%= pelicula.getId_pelicula()%>">Eliminar</a>
 
                             </div>
                         </div>
@@ -70,12 +72,90 @@
                                             <output id="calificacionValor<%= pelicula.getId_pelicula()%>">6</output>
                                             <input type="range" class="form-range" id="calificacion<%= pelicula.getId_pelicula()%>" name="calificacion" min="1" max="10" step="1" required data-pelicula-id="<%= pelicula.getId_pelicula()%>">
                                         </div>
+
                                         <button type="submit" class="btn btn-primary">Enviar Calificación</button>
+
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="modal fade" id="editarModal<%= pelicula.getId_pelicula()%>" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editarModalLabel">Calificar Película</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Formulario de calificación -->
+
+                                    <form  id="editarForm" action="Editar" method="post">
+                                        <input type="hidden" id="peliculaId" name="peliculaId" value="<%= pelicula.getId_pelicula()%>">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="nombreDeLaPelicula" >Nombre De la Pelicula</label>
+                                            <input class="form-control" type="text" name="nombre" value="<%= pelicula.getNombre()%>" required/>
+                                            <div class="invalid-feedback" data-sb-feedback="nombreDeLaPelicula:required">Nombre De la Pelicula es obligatoria.</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="nombreDelAutor">Nombre del Autor</label>
+                                            <input class="form-control"  type="text" name="autor" value="<%= pelicula.getAutor()%>" required />
+                                            <div class="invalid-feedback" data-sb-feedback="nombreDelAutor:required">Nombre del Autor es obligatoria.</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="linkFoto">Link Foto</label>
+                                            <textarea class="form-control" type="text" name="link" style="height: 10rem;" required"><%=pelicula.getFoto()%></textarea>
+                                            <div class="invalid-feedback" data-sb-feedback="linkFoto:required">Link Foto es obligatoria.</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="descripcion">Descripcion</label>
+                                            <textarea class="form-control" id="descripcion" type="text" name="descripcion" style="height: 10rem;" required><%= pelicula.getDescripcion()%></textarea>
+                                            <div class="invalid-feedback" data-sb-feedback="descripcion:required">Descripcion es obligatoria.</div>
+                                        </div>
+                                        <div class="d-none" id="submitSuccessMessage">
+                                            <div class="text-center mb-3">
+                                                <div class="fw-bolder">EXITO!</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-none" id="submitErrorMessage">
+                                            <div class="text-center text-danger mb-3">Error sending message!</div>
+                                        </div>
+                                        <div class="d-grid">
+                                            <button class="btn bg-warning btn-lg" type="submit">ENVIAR</button>
+                                        </div>
+                                    </form>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="eliminarModal<%= pelicula.getId_pelicula()%>" tabindex="-1" role="dialog" aria-labelledby="eliminarModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="eliminarModalLabel">Confirmar Eliminación</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Estás seguro de que deseas eliminar esta película?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <!-- Utilizamos un formulario para la eliminación -->
+                                    <form id="eliminarForm<%= pelicula.getId_pelicula()%>" action="Eliminar" method="POST">
+                                        <input type="hidden" name="id_eliminar" value="<%= pelicula.getId_pelicula()%>">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                        
+
                     <% }
                         /**/%>
 
