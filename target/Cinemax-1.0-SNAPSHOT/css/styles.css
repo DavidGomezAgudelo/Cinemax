@@ -16,6 +16,18 @@ hr {
   opacity: 0.25;
 }
 
+.btn-link2 {
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        color: #fff; /* Puedes ajustar el color según tus preferencias */
+        text-decoration: none;
+    }
+    
+
+
 h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-top: 0;
   margin-bottom: 0.5rem;
@@ -3537,10 +3549,10 @@ textarea.form-control-lg {
   }
 }
 .nav-link:hover, .nav-link:focus {
-  color: var(--bs-nav-link-hover-color);
+  color: #fff;
 }
 .nav-link.disabled {
-  color: var(--bs-nav-link-disabled-color);
+  color: #fff;
   pointer-events: none;
   cursor: default;
 }
@@ -3567,13 +3579,13 @@ textarea.form-control-lg {
   border-color: var(--bs-nav-tabs-link-hover-border-color);
 }
 .nav-tabs .nav-link.disabled, .nav-tabs .nav-link:disabled {
-  color: var(--bs-nav-link-disabled-color);
+  color: #fff;
   background-color: transparent;
   border-color: transparent;
 }
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  color: var(--bs-nav-tabs-link-active-color);
+  color: #fff;
   background-color: var(--bs-nav-tabs-link-active-bg);
   border-color: var(--bs-nav-tabs-link-active-border-color);
 }
@@ -3594,7 +3606,7 @@ textarea.form-control-lg {
   border-radius: var(--bs-nav-pills-border-radius);
 }
 .nav-pills .nav-link:disabled {
-  color: var(--bs-nav-link-disabled-color);
+  color: #fff;
   background-color: transparent;
   border-color: transparent;
 }

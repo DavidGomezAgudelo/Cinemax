@@ -4,7 +4,7 @@
  */
 package control;
 
-import BD.connectionDB;
+import model.connectionDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -201,5 +201,18 @@ public class operations {
             return calificaciones;
         }
     }
-
+    public List<Double> PromediosList(List<Pelicula> listaPeliculas){
+    List<Double> promedios = new ArrayList<>();
+    
+    for(Pelicula peli:listaPeliculas){
+            
+            if(getCalificacionesPorPelicula(peli.getId_pelicula())==null){
+            promedios.add(0.0);
+            }
+            else{
+                promedios.add(calcularPromedio(getCalificacionesPorPelicula(peli.getId_pelicula())));
+            }
+        }
+    return promedios;
+    }
 }

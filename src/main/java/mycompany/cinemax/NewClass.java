@@ -16,10 +16,6 @@ public class NewClass {
     
    
     public static void main(String[] args) {
-        operations BD = new operations();
-        List<Pelicula> listaPeliculas = BD.getPeliculasDB();
-        for(Pelicula pelicua:listaPeliculas){
-            System.out.println(pelicua.getId_pelicula());
-        }
+        
     }
 }

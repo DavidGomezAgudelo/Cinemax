@@ -1,10 +1,10 @@
-C:\Users\David Gomez\Documents\NetBeansProjects\Cinemax\src\main\java\servelt\Editar.java
+C:\Users\David Gomez\Documents\NetBeansProjects\Cinemax\src\main\java\control\Peliculas.java
+C:\Users\David Gomez\Documents\NetBeansProjects\Cinemax\src\main\java\model\connectionDB.java
 C:\Users\David Gomez\Documents\NetBeansProjects\Cinemax\src\main\java\mycompany\cinemax\NewClass.java
 C:\Users\David Gomez\Documents\NetBeansProjects\Cinemax\src\main\java\control\operations.java
-C:\Users\David Gomez\Documents\NetBeansProjects\Cinemax\src\main\java\servelt\Peliculas.java
-C:\Users\David Gomez\Documents\NetBeansProjects\Cinemax\src\main\java\servelt\Eliminar.java
-C:\Users\David Gomez\Documents\NetBeansProjects\Cinemax\src\main\java\servelt\Registrar.java
-C:\Users\David Gomez\Documents\NetBeansProjects\Cinemax\src\main\java\BD\connectionDB.java
+C:\Users\David Gomez\Documents\NetBeansProjects\Cinemax\src\main\java\control\Registrar.java
+C:\Users\David Gomez\Documents\NetBeansProjects\Cinemax\src\main\java\control\Eliminar.java
 C:\Users\David Gomez\Documents\NetBeansProjects\Cinemax\src\main\java\model\Calificacion.java
+C:\Users\David Gomez\Documents\NetBeansProjects\Cinemax\src\main\java\control\Editar.java
 C:\Users\David Gomez\Documents\NetBeansProjects\Cinemax\src\main\java\model\Pelicula.java
-C:\Users\David Gomez\Documents\NetBeansProjects\Cinemax\src\main\java\servelt\calificar.java
+C:\Users\David Gomez\Documents\NetBeansProjects\Cinemax\src\main\java\control\calificar.java
